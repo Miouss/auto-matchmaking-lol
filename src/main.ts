@@ -1,14 +1,15 @@
 import express from "express";
+import { lobby } from "./routes";
+
 import { config } from "dotenv";
 config();
 
 const app = express();
-const { PORT } = process.env;
+const PORT = 3000;
 
-app.get("/", (_, res) => {
-  res.send("Hello World!");
-});
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+app.use("/lobby", lobby);
 
 app.listen(PORT, () => {
-  console.log("Server is running on port 3000");
+  console.log(`Server is running on port ${PORT}`);
 });
