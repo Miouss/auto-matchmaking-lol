@@ -1,6 +1,6 @@
 import { Response, NextFunction } from "express";
 
-import { performRequest } from "../../utils/performRequest";
+import { request } from "../../../utils/request";
 
 export async function getChampSelectSession(
   req: any,
@@ -8,6 +8,6 @@ export async function getChampSelectSession(
   next: NextFunction
 ) {
   const endpoint = "/lol-champ-select/v1/session";
-  req.response = await performRequest(endpoint);
+  req.response = await request(endpoint);
   next();
 }

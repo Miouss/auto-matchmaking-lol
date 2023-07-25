@@ -1,9 +1,9 @@
 import { Response, NextFunction } from "express";
 
-import { performRequest } from "../../utils/performRequest";
+import { request } from "../../../utils/request";
 
-export async function launchQueue(req: any, res: Response, next: NextFunction) {
+export async function launchQueue(req: any, _: Response, next: NextFunction) {
   const endpoint = "/lol-lobby/v2/lobby/matchmaking/search";
-  req.response = await performRequest(endpoint, "POST");
+  req.response = await request(endpoint, "POST");
   next();
 }

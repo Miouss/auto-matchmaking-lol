@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 
-import { performRequest } from "../../utils/performRequest";
+import { request } from "../../../utils/request";
 
 export async function pickChampion(
   req: any,
@@ -8,7 +8,7 @@ export async function pickChampion(
   next: NextFunction
 ) {
   const endpoint = "/lol-champ-select/v1/session/actions/1";
-  req.response = await performRequest(endpoint, "PATCH", {
+  req.response = await request(endpoint, "PATCH", {
     championId: 221,
     completed: true,
   });

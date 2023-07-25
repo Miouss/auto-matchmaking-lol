@@ -1,10 +1,11 @@
 import { Router } from "express";
 
-import { test } from "./middlewares/test";
-import { sendBack } from "./middlewares/sendBack";
+import { test, sendBack, getSummonerId } from "./middlewares";
 
 const lobby = Router();
 
 lobby.post("/", test, sendBack);
+
+lobby.get("/summonerId", getSummonerId);
 
 export { lobby };

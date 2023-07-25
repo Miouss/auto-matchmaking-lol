@@ -1,8 +1,8 @@
 import fetch from "node-fetch";
 
-import { league } from "../../config";
+import { league } from "../config";
 
-export async function performRequest(
+export async function request(
   endpoint: string,
   method: string = "GET",
   body?: any
@@ -27,11 +27,7 @@ export async function performRequest(
     const data = await response.json();
     status = response.status;
 
-    if (response.ok) {
-      dataSend = data;
-    } else {
-      throw new Error();
-    }
+    dataSend = data;
   } catch (err) {
     dataSend = "Impossible to parse response";
   } finally {

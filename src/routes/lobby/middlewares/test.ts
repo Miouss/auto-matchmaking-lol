@@ -1,9 +1,9 @@
 import { Response, NextFunction } from "express";
 
-import { performRequest } from "../../utils/performRequest";
+import { request } from "../../../utils/request";
 
 export async function test(req: any, _: Response, next: NextFunction) {
-  const endpoint = "/lol-login/v1/session";
-  req.response = await performRequest(endpoint);
+  const endpoint = "/lol-lobby/v2/lobby/matchmaking/search";
+  req.response = await request(endpoint, "POST");
   next();
 }
