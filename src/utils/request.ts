@@ -24,14 +24,19 @@ export async function request(
   let dataSend: unknown = "";
 
   try {
-    const data = await response.json();
     status = response.status;
+    const hasContent = response.headers.get("content-length") !== "0";
 
-    dataSend = data;
+    if (hasContent) {
+      const data = await response.json();
+
+      dataSend = data;
+    }
   } catch (err) {
     dataSend = "Impossible to parse response";
   } finally {
     return {
+      ok: response.ok,
       status,
       data: dataSend,
     };

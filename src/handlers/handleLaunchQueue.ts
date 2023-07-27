@@ -1,15 +1,12 @@
-import { wait, launchQueue } from "../utils";
+import { launchQueue } from "../utils";
+import { getBoolean } from "./helpers";
 
 export async function handleLaunchQueue() {
-  let isLaunched = false;
+  const isLaunched = getBoolean(
+    launchQueue,
+    "Trying to launch queue...",
+    "Queue launched !"
+  );
 
-  while (!isLaunched) {
-    console.log("Trying to launch queue...");
-
-    isLaunched = await launchQueue();
-
-    if (!isLaunched) await wait(1000);
-  }
-
-  console.log("Queue launched !");
+  return isLaunched;
 }

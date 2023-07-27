@@ -1,6 +1,4 @@
-import { Response, NextFunction } from "express";
-
-import { request } from "../../../utils/request";
+import { request } from "../request";
 
 interface Data {
   accountId: number;
@@ -28,14 +26,11 @@ interface Session {
   status: number;
 }
 
-export async function getSummonerId(req: any, _: Response, next: NextFunction) {
+export async function getSummonerId(): Promise<number> {
   const endpoint = "/lol-login/v1/session";
   const response: Session = (await request(endpoint)) as Session;
 
-  req.response = {
-    status: response.status,
-    data: response.data.summonerId,
-  };
+  const summonerId = response.data.summonerId;
 
-  next();
+  return summonerId;
 }
