@@ -34,7 +34,6 @@ app.listen(PORT, async () => {
   let summonerId = await handleGetSummonerId();
   let hasPicked = false;
   let hasBanned = false;
-  let hasLaunchedQueue = false;
 
   while (true) {
     if (!summonerId) {
@@ -46,10 +45,6 @@ app.listen(PORT, async () => {
     if (phase !== "ChampSelect" && (hasPicked || hasBanned)) {
       hasPicked = false;
       hasBanned = false;
-    }
-
-    if (phase === "Lobby" && !hasLaunchedQueue) {
-      hasLaunchedQueue = false;
     }
 
     switch (phase) {
@@ -91,15 +86,10 @@ app.listen(PORT, async () => {
         }
         break;
       case "Lobby":
-        if (!hasLaunchedQueue) {
-          if (await canLaunchQueue(summonerId)) {
-            hasLaunchedQueue = await handleLaunchQueue();
-          } else{
-            console.log("Cannot launch queue, waiting 5 seconds...");
-            await wait(5);
-          }
+        if (await canLaunchQueue(summonerId)) {
+          await handleLaunchQueue();
         } else {
-          console.log("Currently in queue, waiting 5 seconds...");
+          console.log("Cannot launch queue, waiting 5 seconds...");
           await wait(5);
         }
         break;
